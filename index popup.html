@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <title>Movie App</title>
+</head>
+<body>
+    <div class="container">
+        <div class="search">
+            <input type="text" placeholder="Search Movie...">
+            <button>Search</button>
+        </div>
+        <div class="movies-container favorites">
+            <h1>Favorites</h1>
+            <div class="movies-grid">
+                <!-- Aquí puedes agregar tus películas favoritas -->
+            </div>
+        </div>
+        <div class="movies-container trending">
+            <h1>Trending</h1>
+            <div class="movies-grid">
+                <!-- Aquí puedes agregar tus películas en tendencia -->
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-container">
+        <!-- Aquí puedes agregar el contenido de la ventana emergente -->
+    </div>
+
+    <script>
+        // Verifica si el usuario ha iniciado sesión
+        window.onload = function() {
+            let is_log = localStorage.getItem("is_log");
+            let username = localStorage.getItem("username");
+
+            if (is_log !== 'true' || !username) {
+                alert("Por favor, inicie sesión primero.");
+                window.location.href = "login.html"; // Redirige a login.html si no está autenticado
+            } else {
+                // Opcional: puedes mostrar un saludo al usuario
+                console.log(`Bienvenido de nuevo, ${username}!`);
+            }
+        };
+
+        // Aquí puedes agregar la lógica para buscar películas, mostrar favoritos, etc.
+    </script>
+</body>
+</html>
