@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>VUE</title>
+    <link rel="stylesheet" type="text/css" href="style1.css">
+
+</head>
+<body>
+
+    <div id="main" class="container">
+        <div class="heading">Sign In</div>
+        <form @submit.prevent="login" class="form">
+            <input required class="input" type="text" v-model="username" placeholder="Username">
+            <input required class="input" type="password" v-model="password" placeholder="Password">
+            <span class="forgot-password"><a href="#">Olvidaste la Contraseña</a></span>
+            <input class="login-button" type="submit" value="Sign In">
+        </form>
+        <div v-if="isLoggedIn">Bienvenido, {{ username }}!</div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const username = ref('');
+                const password = ref('');
+                const isLoggedIn = ref(false);
+
+                const login = async () => {
+                    const apiKey = '0f1911236aa91d9d37ad2b1a76be3c5d';
+                    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZjE5MTEyMzZhYTkxZDlkMzdhZDJiMWE3NmJlM2M1ZCIsIm5iZiI6MTcyODQ5NjI0My44NTI0NzMsInN1YiI6IjY3MDZiZmIwYTg4NjE0ZDZiMDhiMGYzNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.__0rNgYgPnfYeJc5bCAVPiqrPsAoIqXmANjuVJxrthU';
+                    
+                    try {
+                        const response = await fetch(`https://api.themoviedb.org/3/authentication/token/new?api_key=${apiKey}`);
+                        const data = await response.json();
+
+                        if (!data.success) {
+                            throw new Error('No se pudo obtener el token de solicitud');
+                        }
+
+                        const requestToken = data.request_token;
+
+                        const loginResponse = await fetch(`https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=${apiKey}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json;charset=utf-8',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({
+                                username: username.value,
+                                password: password.value,
+                                request_token: requestToken
+                            })
+                        });
+
+                        const loginData = await loginResponse.json();
+                        if (loginData.success) {
+                        isLoggedIn.value = true;
+                        alert('Inicio de sesión exitoso');
+                        window.location.href = "index.html";
+
+                        localStorage.setItem("isLoggedIn", true);
+                        localStorage.setItem("username", username.value);
+                        } else {
+                        alert('Inicio de sesión fallido');
+                        }
+                    } catch (error) {
+                        console.error('Error en el proceso de autenticación:', error);
+                        alert('Error en el inicio de sesión. Verifica tus credenciales.');
+                    }
+                };
+
+                return {
+                    username,
+                    password,
+                    isLoggedIn,
+                    login
+                };
+            }
+        }).mount('#main');
+    </script>
+</body>
+</html>

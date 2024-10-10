@@ -1,0 +1,9 @@
+0f1911236aa91d9d37ad2b1a76be3c5d============api key
+
+
+token de lectura===========
+eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZjE5MTEyMzZhYTkxZDlkMzdhZDJiMWE3NmJlM2M1ZCIsIm5iZiI6MTcyODQ5NjI0My44NTI0NzMsInN1YiI6IjY3MDZiZmIwYTg4NjE0ZDZiMDhiMGYzNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.__0rNgYgPnfYeJc5bCAVPiqrPsAoIqXmANjuVJxrthU
+
+
+usuario: jflore2_18
+contraseña: COCACOLA=!
